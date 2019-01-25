@@ -1,12 +1,13 @@
-#ifndef WORKERTHREAD_H
-#define WORKERTHREAD_H
+#pragma once
 
+//#include "bossthread.h"
 #include <QThread>
 #include <QDebug>
 #include <QColor>
 #include <QPoint>
 #include <QtCore>
 #include <complex>
+
 
 using namespace std;
 
@@ -19,7 +20,6 @@ public:
     void update(int, int, int, int);
     void run();
 
-    static bool isFinish;
 private:
     int id;
     QColor** colorTab;
@@ -32,5 +32,3 @@ private:
     int heightStart;
     int heightEnd;
 };
-
-#endif // WORKERTHREAD_H

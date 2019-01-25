@@ -1,6 +1,6 @@
 #include "workerthread.h"
+#include "bossthread.h"
 
-bool WorkerThread::isFinish = false;
 WorkerThread::WorkerThread(int _id,QColor** _colorTab,int _width,int _height,int _widthStart,int _heightStart,int _widthEnd,int _heightEnd)
 {
     id = _id;
@@ -44,5 +44,5 @@ void WorkerThread::run()
         }
     }
     qDebug()<<"Thread:"<<id<<" end";
-    isFinish=true;
+    BossThread::semThreadWorker->release();
 }

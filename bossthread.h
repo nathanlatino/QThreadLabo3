@@ -4,13 +4,15 @@
 #include <QRect>
 #include <QColor>
 
-class MainThread
+class BossThread : public QThread
 {
 public:
-    MainThread(QColor**,int,int,int);
+    BossThread(QColor**,int,int,int);
     void run();
-    static bool isFinish;
+    static QSemaphore semMain;
+    static QSemaphore* semThreadWorker;
 private :
+    QMutex* mLock;
     QPoint perfectRect(int);
     QRect* rectScene;
     QColor** colorTab;

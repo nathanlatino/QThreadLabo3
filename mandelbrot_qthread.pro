@@ -3,11 +3,11 @@ QT += widgets
 HEADERS       = \
     displaymandel.h \
     workerthread.h \
-    mainthread.h
+    bossthread.h
 SOURCES       = main.cpp \
     displaymandel.cpp \
     workerthread.cpp \
-    mainthread.cpp
+    bossthread.cpp
 
 unix:!mac:!vxworks:!integrity:!haiku:LIBS += -lm
 
