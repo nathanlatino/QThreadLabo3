@@ -3,9 +3,9 @@
 QSemaphore BossThread::semMain(1);
 QSemaphore* BossThread::semThreadWorker;
 
-BossThread::BossThread(QColor** _colorTab, int size, int _nbThread, int _nbBloc) {
+BossThread::BossThread(QColor** _colorTab, int _size, int _nbThread, int _nbBloc) {
     colorTab = _colorTab;
-    rectScene = new QRect(0,0,size,size);
+    rectScene = new QRect(0,0,_size,_size);
     nbThread = _nbThread;
     semThreadWorker = new QSemaphore(nbThread);
     nbRow = perfectRect(_nbBloc).x();
@@ -34,8 +34,8 @@ void BossThread::run() {
             semThreadWorker->acquire();
             tabThreads.append(new WorkerThread(activedThread+1,colorTab,rectScene->width(),rectScene->height(),i*blocWidth,j*blocHeight,(i+1)*blocWidth,(j+1)*blocHeight));
             tabThreads[activedThread]->start();
-            mLock->unlock();
             activedThread++;
+            mLock->unlock();            
             lastColumn = i;
 
         }
@@ -67,6 +67,11 @@ void BossThread::run() {
         }
     semThreadWorker->acquire(nbThread);
     semThreadWorker->release(nbThread);
+
+    foreach (WorkerThread* w, tabThreads) {
+        delete w;
+    }
+    delete semThreadWorker;
 
     semMain.release();
 }

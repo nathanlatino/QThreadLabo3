@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     int size=1000;
-    if(argc < 3)
+    if(argc != 3)
     {
         return EXIT_FAILURE;
     }
@@ -41,12 +41,16 @@ int main(int argc, char *argv[])
     qDebug()<<"Cal in:"<<nMilliseconds;
 
     DisplayMandel* displayMander = new DisplayMandel(colorTab,0,0,size,size);
+
     QSize windowsSize(size,size);
     displayMander->resize(windowsSize);
     displayMander->show();
+
     QMessageBox msgTime;
     msgTime.setText(QString("temps : %1ms").arg(nMilliseconds));
     msgTime.show();
+
+
 
     return app.exec();
 }
